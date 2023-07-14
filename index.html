@@ -7,11 +7,11 @@
         <link rel="stylesheet" href="style.css">
         <script src="script.js" defer></script>
     </head>
-    <body>
+    <body data-theme="dark">
         <section>
             <div class="theme-toggle">
-                <i class="bi-brightness-high"></i>
-                <i class="bi-moon-stars act"></i>
+                <i data-value="light" class="bi-brightness-high"></i>
+                <i data-value="dark" class="bi-moon-stars act"></i>
             </div>
             <div class="dis">
                 <div class="inp">
@@ -23,28 +23,28 @@
             </div>
             <div class="board">
                 <div class="spc span2" id="clearAll">AC</div>
-                <div class="ops" id="togPlusMinus">+/-</div>
                 <div class="spc" id="clear">
                     <i class="bi-backspace"></i>
                 </div>
+                <div class="ops" id="togPlusMinus">+/-</div>
                 <div class="spc" id="per">%</div>
                 <div class="spc" id="root">√
                     <p>&nbsp;2</p>
                 </div>
-                <div class="ops" id="div"> ∻ </div>
                 <div>7</div>
+                <div class="ops" id="div">∻</div>
                 <div>8</div>
                 <div>9</div>
-                <div class="ops" id="mul"> × </div>
                 <div>4</div>
+                <div class="ops" id="mul">×</div>
                 <div>5</div>
                 <div>6</div>
-                <div class="ops" id="sub"> – </div>
                 <div>1</div>
+                <div class="ops" id="sub">– </div>
                 <div>2</div>
                 <div>3</div>
-                <div class="ops" id="add"> + </div>
                 <div>0</div>
+                <div class="ops" id="add">+</div>
                 <div class="hist">
                     <i class="bi-arrow-counterclockwise"></i>
                 </div>
