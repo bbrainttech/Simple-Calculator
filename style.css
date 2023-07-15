@@ -15,7 +15,7 @@
 
 body {
     --mainColor: #2a2d37;
-    --secColor: #22252d;
+    --secColor: #262729;
     --sub1: #24eac5;
     --sub2: #da6f70;
     --trns: transparent;
@@ -24,7 +24,8 @@ body {
     --buttonShad: #00000063;
     --secShad: #0000002b;
     --Col: #5b5b5b;
-
+    --drw : #444444;
+    --togShad : #3434341f;
 
     display: flex;
     align-items: center;
@@ -42,6 +43,7 @@ body[data-theme="light"] {
     --inpCol: #393939;
     --buttonShad: rgba(203, 207, 209, 0.388);
     --iCol: #5b5b5b;
+    --drw : #cecece;
 }
 
 section {
@@ -53,6 +55,20 @@ section {
     display: grid;
     position: relative;
     overflow: hidden;
+}
+.sec2{
+    /* position: absolute;
+    height: 35%;
+    width: 100%;
+    place-self: end;
+    background: var(--mainColor);
+    border-radius: 30px 30px 0 0;
+    display: grid;
+    gap: 1em;
+    padding: 2em 1em 1em;
+    grid-template-columns: repeat(4, 1fr);
+    border: solid red;
+    display: none; */
 }
 
 .theme-toggle {
@@ -67,6 +83,7 @@ section {
     border-radius: 20px;
     transition: .35s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     background: var(--mainColor);
+    box-shadow: 0 5px 8px var(--togShad);
 }
 
 .theme-toggle i {
@@ -141,21 +158,40 @@ section {
 }
 
 .dis>.res .b3 {
+    font-size: 1.8em;
+}
+
+.dis>.res .b4 {
     font-size: 1.3em;
 }
 
-.board {
+.board,.sec2 {
     background: var(--mainColor);
     border-radius: 30px 30px 0 0;
     align-self: end;
     display: grid;
     gap: 1em;
-    padding: 1em;
+    padding: 2em 1em 1em;
     height: 91%;
+    position: relative;
     grid-template-columns: repeat(4, 1fr);
 }
-
-.board>div {
+.sec2{
+    height: 50%;
+    position: absolute;
+    border: solid red;
+    width: 100%;
+}
+.drawer{
+    width: 3em;
+    height: .3em;
+    position: absolute;
+    border-radius: 5px;
+    background: var(--drw);
+    top: .4em;
+    left: calc(50% - 1.5em);
+}
+.board>div,.sec2>div {
     font-size: 1.2em;
     border-radius: 8px;
     box-shadow: 0 0 .7em var(--buttonShad);
@@ -198,4 +234,11 @@ section {
     border: 0;
     color: #fff;
     background: var(--sub2);
+}
+@media screen and (max-width : 370px) {
+    section{
+        width: 95%;
+        width: 95%;
+        height: 45em;
+    }
 }

@@ -1,74 +1,76 @@
-const userInp = document.querySelector('.inp input'),
-    result = document.querySelector('.res>div'),
-    clear = document.getElementById("clear"),
-    compute = document.querySelector('.compute'),
-    clearAll = document.getElementById("clearAll"),
-    themeTog = document.querySelectorAll('.theme-toggle>i'),
-    togPlusMinus = document.getElementById('togPlusMinus'),
-    allNums = document.querySelectorAll('.board>div:not(.spc,.compute,#clearAll,#togPlusMinus,#per,#root,.hist)'),
-    allOps = document.querySelectorAll('.ops');
+const userInp = q('.inp input'),
+    result = q('.res>div'),
+    clear = q("#clear"),
+    compute = q('.compute'),
+    clearAll = q("#clearAll"),
+    themeTog = q('.theme-toggle>i', true),
+    togPlusMinus = q('#togPlusMinus'),
+    allNums = q('.board>div:not(.spc,.compute,#clearAll,#togPlusMinus,#per,#root,.hist)', true),
+    allOps = q('.ops', true), per = q('#per');
 
-(localStorage.result && localStorage.expression) ? (() => { userInp.value = localStorage.expression; setTimeout(() => { result.classList.add('hasData'); result.innerHTML = localStorage.result }, 200) })() : null
+upDateSize = (i) => {
+    let l = i.textContent.length;
 
-themeTog.forEach(theme => {
-    theme.onmousedown = function () {
-        
-        themeTog[0].classList.toggle('act')
-        themeTog[1].classList.toggle('act')
-        if(this.dataset.value === 'light'){
-            document.body.setAttribute('data-theme','light')} else{
-            document.body.setAttribute('data-theme','dark') }
+    if (l > 7) cls(i, 'b1', 'a'); else cls(i, 'b1', 'r')
+    if (l > 14) cls(i, 'b2', 'a'); else cls(i, 'b2', 'r')
+    if (l > 25) cls(i, 'b3', 'a'); else cls(i, 'b3', 'r')
+    if (l > 35) cls(i, 'b4', 'a'); else cls(i, 'b4', 'r')
+}
+(localStorage.result && localStorage.expression) ? (() => {
+    userInp.value = localStorage.expression;
+    setTimeout(() => {
+        result.classList.add('hasData');
+        result.innerHTML = localStorage.result
+        upDateSize(result)
+    }, 200)
+})() : null
+
+on(themeTog, 'mousedown', function () {
+    themeTog[0].classList.toggle('act')
+    themeTog[1].classList.toggle('act')
+    if (this.dataset.value === 'light') {
+        document.body.setAttribute('data-theme', 'light')
+    } else {
+        document.body.setAttribute('data-theme', 'dark')
     }
-})
-// document.documentElement.style.setProperty('--sub1','red')
-allNums.forEach(num => {
-    num.onmousedown = function () {
-        userInp.value += this.innerHTML
-        computeExp(userInp.value)
-    }
-})
+}, true)
+
+on(allNums, 'mousedown', function () {
+    userInp.value += this.innerHTML
+    computeExp(userInp.value)
+}, true)
 
 function updateStorage(f) {
     localStorage.expression = f
     localStorage.result = result.innerHTML
 }
-upDateSize = (i) => {
-    let l = i.textContent.length;
-    (l > 7) ? i.classList.add('b1') : (l > 14) ? i.classList.add('b2') : i.classList.add('b3')
-}
 
-clear.onmousedown = () => {
+on(clear, 'mousedown', () => {
     userInp.value = userInp.value.slice(0, -1)
     computeExp(userInp.value)
     updateStorage(userInp.value)
-}
-clearAll.onmousedown = () => {
+})
+on(clearAll, 'mousedown', () => {
     userInp.value = ''; result.innerHTML = '';
     updateStorage(userInp.value)
-}
+})
+on(per, 'mousedown', ()=>{
+    userInp.value +='%'
+    computeExp(userInp.value)
+    console.log("hi ")
+})
 togPlusMinus.onclick = () => {
     // (userInp.value.split('').includes('–')) ? computeExp(userInp.value): computeExp(userInp.value)
 }
-const replaceIn = i => {
-    return i.replaceAll('-', ' – ')
-        .replaceAll('*', ' × ')
-        .replaceAll('/', ' ∻ ')
-        .replaceAll(' ', '')
-}
-const replaceOut = o => {
-    return o.replaceAll('–', '-')
-        .replaceAll('×', '*')
-        .replaceAll('∻', '/')
-        .replaceAll('^', '**')
-        .replaceAll(' ', '')
-}
+
 const computeExp = (f) => {
     if (!f) return
     userInp.value = replaceIn(userInp.value)
     result.classList.add('hasData')
-    result.innerHTML = eval(replaceOut(f)).toLocaleString()
+    result.innerHTML = (eval(replaceOut(f)).toLocaleString()).slice(0, 105)
+    upDateSize(result)
     updateStorage(f)
 }
 
-compute.onclick = () => { computeExp(userInp.value) }
+// compute.onclick = () => { computeExp(userInp.value) }
 userInp.oninput = e => { computeExp(e.target.value) }
